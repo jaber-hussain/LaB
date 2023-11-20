@@ -1,0 +1,154 @@
+
+class Node
+{
+int data;
+Node next;
+Node prev;
+}
+class Doublelinklist
+{
+Node start,end,temp;
+int size=0;
+void insert_start(int value)
+{
+Node newnode = new Node();
+newnode.data=value;
+newnode.next=null;
+newnode.prev=null;
+if(start==null)
+{
+start=newnode;
+end=start;
+size++;
+}
+else
+{
+newnode.next=start;
+start.prev=newnode;
+start=newnode;
+size++;
+}
+}
+void insert_end(int value)
+{
+Node newnode = new Node();
+newnode.data=value;
+newnode.next=null;
+newnode.prev=null;
+if(start==null)
+{
+start=newnode;
+end=start;
+size++;
+}
+else
+{
+end.next=newnode;
+newnode.prev=end;
+end=newnode;
+size++;
+}
+}
+void delete_start()
+{
+if(start==null)
+System.out.println("empty");
+else{
+start=start.next;
+start.prev.next=null;
+start.prev=null;
+size--;
+}
+}
+void delete_end()
+{
+	if(start==null)
+		System.out.println("empty");
+	else{
+		end.prev=null;
+		end.next=null;
+		size--;
+	}
+}
+void insert_loc(int info,int loc)
+{
+	Node newnode=new Node();
+	newnode.data=info;
+	newnode.next=null;
+	newnode.prev=null;
+	if(start==null)
+	{
+		start=newnode;
+		end=start;
+		size++;
+	}
+	else if(loc==0)
+		insert_start(info);
+	else if(loc==size)
+		insert_end( info);
+	else if(loc>0 && loc<size)
+	{
+		temp=start;
+		if(loc<0&&loc>size)
+			System.out.println("index out of bond");
+	for(int i=1;i<loc;i++)
+	{
+	temp=temp.next;	
+	}
+	newnode.prev=temp;
+	newnode.next=temp.next;
+	temp.next=newnode;
+	temp.next.next.prev=newnode;
+	//temp.next=newnode;
+	size++;	
+	}
+	System.out.println("17");
+}
+void delete_loc(int loc)
+{
+	if(start==null)
+		System.out.println("empty");
+	else if(loc==0)
+		delete_start();
+	else if(loc==size)
+		delete_end();
+	else if(loc>0 && loc<size)
+	{
+		temp=start;
+		if(loc<0 && loc>size)
+			System.out.println("index out of bond");
+		for(int i=2;i<loc;i++)
+		{
+			temp=temp.next;
+		}
+		temp.next=temp.next.next;
+		temp.next.next.prev=temp;
+		size--;
+	}
+}
+void display()
+{
+	temp=start;
+	while(temp.next!=null)
+	{
+		System.out.println(temp.data);
+		temp=temp.next;
+	}
+}
+}
+class Main
+{
+	public static void main(String[] x)
+	{
+		Doublelinklist d1 = new Doublelinklist();
+		//d1.insert_start(32);
+		//d1.display();
+		d1.insert_end(14);
+		d1.insert_loc(17,2);
+		d1.display();
+		//d1.delete_end();
+		//d1.delete_start();
+		//d1.delete_loc(3);
+		//d1.display();
+	}
+}
